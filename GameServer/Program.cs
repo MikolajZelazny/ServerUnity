@@ -1,7 +1,13 @@
-﻿namespace GameServer
+﻿using System;
+
+namespace GameServer
 {
-    public class Program
+    internal class Program
     {
-        
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("YO");
+            Console.ReadKey();
+        }
     }
 }
