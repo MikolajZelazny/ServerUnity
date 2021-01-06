@@ -1,6 +1,7 @@
 ﻿using System;
 
 namespace GameServer
+//TODO read about MySQL based servers
 {
     internal class Program
     {
