@@ -9,6 +9,7 @@ namespace GameServer
         {
             Console.Title = "Game Server";
             Console.ReadKey();
+            
         }
     }
 }
