@@ -13,6 +13,7 @@ namespace GameServer
         
         public static int Port { get; private set; };
         
+        //Error
         public static int TcpListener tcpListener;
 
 
