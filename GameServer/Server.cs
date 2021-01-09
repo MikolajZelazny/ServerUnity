@@ -11,10 +11,30 @@ namespace GameServer
     {
         public static int MaxPlayers { get; private set; }
         
-        public static int Port { get; private set; };
+        public static int Port { get; private set; }
         
-        //Error
-        public static int TcpListener tcpListener;
+        private static TcpListener tcpListener;
+
+        public void Start(int _maxPlayers, int _port)
+        {
+            MaxPlayers = _maxPlayers;
+            Port = _port;
+            
+            Console.WriteLine("Starting server...");
+
+            tcpListener = new TcpListener(IPAddress.Any, Port);
+            tcpListener.Start();
+            tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
+            
+            Console.WriteLine($"Server started on {Port}.");
+
+        }
+
+        private static void TCPConnectCallback(IAsyncResult _result)
+        {
+            TcpClient client = tcpListener.EndAcceptTcpClient(_result);
+            tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
+        }
 
 
     }
