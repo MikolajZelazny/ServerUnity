@@ -8,6 +8,8 @@ namespace GameServer
 {
     public class Client
     {
+        public static int dataBufferSize = 4096;
+            
         public int id;
         public TCP tcp;
 
@@ -22,6 +24,18 @@ namespace GameServer
             public TcpClient socket;
 
             private readonly int id;
+
+            public TCP(int _id)
+            {
+                id = id;
+            }
+
+            public void Connect(TcpClient _socket)
+            {
+                socket = socket;
+                socket.ReceiveBufferSize = dataBufferSize;
+                socket.SendBufferSize = dataBufferSize;
+            }
         }
     }
 
