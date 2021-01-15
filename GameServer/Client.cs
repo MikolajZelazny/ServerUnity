@@ -22,8 +22,10 @@ namespace GameServer
         public class TCP
         {
             public TcpClient socket;
-
+            
             private readonly int id;
+            private NetworkStream stream;
+            private byte[] receiveBuffer;
 
             public TCP(int _id)
             {
@@ -35,6 +37,39 @@ namespace GameServer
                 socket = socket;
                 socket.ReceiveBufferSize = dataBufferSize;
                 socket.SendBufferSize = dataBufferSize;
+
+                stream = socket.GetStream();
+
+                receiveBuffer = new byte[dataBufferSize];
+
+                stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
+                
+                // TODO: send welcome packet
+            }
+
+            private void ReceiveCallback(IAsyncResult _result)
+            {
+                try
+                {
+                    int _byteLength = stream.EndRead(_result);
+                    if (_byteLength <= 0)
+                    {
+                        //TODO: disconnect
+                        return;
+                    }
+
+                    byte[] _data = new byte[_byteLength];
+                    Array.Copy(receiveBuffer, _data, _byteLength);
+                    
+                    // TODO: handle data
+                    stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
+
+                }
+                catch (Exception _ex)
+                {
+                    Console.WriteLine($"Error receiving TCP {_ex}");
+                    // TODO: disconnect
+                }
             }
         }
     }
