@@ -1,7 +1,10 @@
 ﻿using System;
 
 namespace GameServer
-//TODO read about MySQL based servers
+    /** WARNING NOTE: PROJECT SUSPENDED (REASON - CHANGING TO PHOTON 2) **/ 
+            
+    
+    //TODO read about MySQL based servers
 {
     internal class Program
     {
